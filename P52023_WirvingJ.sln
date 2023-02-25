@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P52023_WirvingJ", "P52023_WirvingJ\P52023_WirvingJ.csproj", "{70F8FB9D-80EC-49F2-8EED-87BF89113B74}"
+	ProjectSection(ProjectDependencies) = postProject
+		{74355CA3-F4D4-45FB-9C2C-604B88A1CF0C} = {74355CA3-F4D4-45FB-9C2C-604B88A1CF0C}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logica", "Logica\Logica.csproj", "{74355CA3-F4D4-45FB-9C2C-604B88A1CF0C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{70F8FB9D-80EC-49F2-8EED-87BF89113B74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70F8FB9D-80EC-49F2-8EED-87BF89113B74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70F8FB9D-80EC-49F2-8EED-87BF89113B74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70F8FB9D-80EC-49F2-8EED-87BF89113B74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74355CA3-F4D4-45FB-9C2C-604B88A1CF0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74355CA3-F4D4-45FB-9C2C-604B88A1CF0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74355CA3-F4D4-45FB-9C2C-604B88A1CF0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74355CA3-F4D4-45FB-9C2C-604B88A1CF0C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A373DD70-0AAF-4A79-A070-6793F786E42B}
+	EndGlobalSection
+EndGlobal
