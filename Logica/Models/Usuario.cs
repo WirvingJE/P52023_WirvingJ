@@ -1,35 +1,39 @@
-﻿using System;
+﻿using Logica.Services;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+using System.Data.SqlClient;
+
 namespace Logica.Models
 {
     public class Usuario
     {
 
-        public int UsurioID { get; set; } 
+        public int UsuarioID { get; set; } 
         
         public string UsuarioCorreo { get; set; }
 
         public string UsuarioContrasennia { get;set; }  
 
-        public string UsarioNombre { get; set; }
+        public string UsuarioNombre { get; set; }
 
-        public string UsarioCedula { get; set; }
+        public string UsuarioCedula { get; set; }
 
-        public string UsarioTelefono { get; set; }
+        public string UsuarioTelefono { get; set; }
 
-        public string UsarioDireccion { get; set; }
+        public string UsuarioDireccion { get; set; }
 
 
         public bool Activo { get; set; }    
 
 
         //propiedades compuestas
-        Usuario_Rol MiRolTipo { get; set; }
+        public Usuario_Rol MiRolTipo { get; set; }
 
         //normalmente cuando tenemos propiedades compuestas contipos
         // hemos programado nosotros mismos , den¿bemos instaciar dichas propiedades 
@@ -84,6 +88,51 @@ namespace Logica.Models
             return R;
         }
 
+        public Usuario ConsultarPorIDRetornaUsuario()
+        {
+
+            Usuario R = new Usuario();
+
+            Conexion MiCnn = new Conexion();
+
+            MiCnn.ListaDeParametros.Add(new SqlParameter("@ID", this.UsuarioID));
+
+            DataTable dt= new DataTable();
+
+            dt = MiCnn.EjecutarSELECT("SPUsuarioConsultarPorID");
+
+            if(dt != null && dt.Rows.Count > 0 )
+            {
+                DataRow dr = dt.Rows[0];
+
+                R.UsuarioID = Convert.ToInt32(dr["UsuarioID"]);
+                R.UsuarioNombre = Convert.ToString(dr["UsuarioNombre"]);
+
+
+                R.UsuarioCedula = Convert.ToString(dr["UsuarioCedula"]);
+                R.UsuarioCorreo = Convert.ToString(dr["UsuarioCorreo"]);
+                R.UsuarioTelefono = Convert.ToString(dr["UsuarioTelefono"]);
+                R.UsuarioDireccion = Convert.ToString(dr["UsuarioDireccion"]);
+
+                R.UsuarioContrasennia = string.Empty;
+
+                //composiciones 
+                R.MiRolTipo.UsuarioRolID = Convert.ToInt32(dr["UsuarioRolID"]);
+                R.MiRolTipo.UsuarioRolDescripcion = Convert.ToString(dr["UsuarioRolDescripcion"]);
+
+
+
+
+
+
+            }
+
+
+
+
+            return R;
+        }
+
         public bool ConsultarPorCedula()
         {
 
@@ -104,6 +153,14 @@ namespace Logica.Models
         {
 
             DataTable R = new DataTable();
+
+            Conexion MiCnn = new Conexion();
+            //este caso como sp tiene parametro,debemos por lo tanto defineir ese parametro
+            //en la 
+            MiCnn.ListaDeParametros.Add(new SqlParameter("@VerActivos", true));
+
+            R = MiCnn.EjecutarSELECT("SPUsuarioListar ");
+
 
             return R;
         }

@@ -11,7 +11,7 @@ namespace Logica.Models
     {
         //Primero se digitan las prpiedades de la clase
 
-        public int UsarioRolID { get; set; }
+        public int UsuarioRolID { get; set; }
 
         //  public int MyProperty { get; set; }
 
