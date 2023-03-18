@@ -13,6 +13,8 @@ namespace P52023_WirvingJ
 
         public static Form MiFormPrincipal = new Formularios.FrmMDI();
 
+        public static Formularios.FrmUsuariosGestion MiFormGestionUsuarios = new Formularios.FrmUsuariosGestion();
+
 
     }
 }

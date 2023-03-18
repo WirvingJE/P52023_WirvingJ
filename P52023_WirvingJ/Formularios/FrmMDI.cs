@@ -27,5 +27,25 @@ namespace P52023_WirvingJ.Formularios
         {
 
         }
+
+        private void gestiónDeUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            //control para que el formulario de gestion de usuarios 
+            // se muestre una sola vez
+
+            if (!Globales.MiFormGestionUsuarios.Visible)
+            {
+                Globales.MiFormGestionUsuarios = new FrmUsuariosGestion();
+
+                Globales.MiFormGestionUsuarios.Show();
+
+            }
+
+
+
+
+
+        }
     }
 }
