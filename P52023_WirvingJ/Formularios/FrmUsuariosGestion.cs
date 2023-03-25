@@ -165,5 +165,187 @@ namespace P52023_WirvingJ.Formularios
 
 
         }
+
+        private void BtnLimpiar_Click(object sender, EventArgs e)
+        {
+            LimpiarFormularios();
+        }
+
+        private void LimpiarFormularios()
+        {
+            TxtUsuarioID.Clear();
+            TxtUsuarioNombre.Clear();
+            TxtCedula.Clear();  
+            TxtTelefono.Clear();    
+            TxtUsuarioCorreo.Clear();
+            TxtUsuarioContrasennia.Clear();
+
+            CbRolesUsuario .SelectedIndex = -1;
+
+            TxtUsuarioDireccion.Clear();
+
+
+        }
+
+        private bool ValidarDatosDigitados()
+        {
+            bool  R = false;
+
+            if (!string.IsNullOrEmpty(TxtUsuarioNombre.Text.Trim()) &&
+                 !string.IsNullOrEmpty(TxtCedula.Text.Trim()) &&
+                 !string.IsNullOrEmpty(TxtTelefono.Text.Trim()) &&
+                 !string.IsNullOrEmpty(TxtUsuarioCorreo.Text.Trim()) &&
+                 !string.IsNullOrEmpty(TxtUsuarioContrasennia.Text.Trim()) &&
+                 CbRolesUsuario.SelectedIndex > -1
+                 )
+            {
+                R = true;
+            }
+            else
+            {
+                //que pasa cuando algo falta 
+
+                if (string.IsNullOrEmpty(TxtUsuarioNombre.Text.Trim()))
+                {
+                    MessageBox.Show("Debe digitar un nombre de ususario", "", MessageBoxButtons.OK);
+                    TxtUsuarioNombre.Focus();
+                    return false;
+                }
+
+                if (string.IsNullOrEmpty(TxtCedula.Text.Trim()))
+                {
+                    MessageBox.Show("Debe digitar una cedula para el ususario", "✘", MessageBoxButtons.OK);
+                    TxtCedula.Focus();
+                    return false;
+                }
+
+                if (string.IsNullOrEmpty(TxtTelefono.Text.Trim()))
+                {
+                    MessageBox.Show("Debe digitar un telefono para el ususario", "✘", MessageBoxButtons.OK);
+                    TxtTelefono.Focus();
+                    return false;
+                }
+
+                if (string.IsNullOrEmpty(TxtUsuarioCorreo.Text.Trim()))
+                {
+                    MessageBox.Show("Debe digitar un correo para el ususario", "✘", MessageBoxButtons.OK);
+                    TxtUsuarioCorreo.Focus();
+                    return false;
+                }
+
+                if (string.IsNullOrEmpty(TxtUsuarioContrasennia.Text.Trim()))
+                {
+                    MessageBox.Show("Debe digitar una contraseña para el ususario", "✘", MessageBoxButtons.OK);
+                    TxtUsuarioContrasennia.Focus();
+                    return false;
+                }
+
+                if (CbRolesUsuario.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Debe seleccionar un rol para el ususario", "✘", MessageBoxButtons.OK);
+                    CbRolesUsuario.Focus();
+                    return false;
+                }
+
+
+            
+
+
+        }
+
+
+
+            return R;
+
+
+        }
+
+        private void BtnAgregar_Click(object sender, EventArgs e)
+        {
+            if(ValidarDatosDigitados())
+            {
+
+            
+
+            bool CedulaOk;
+            bool EmailOk;
+
+            MiUsuarioLocal = new Logica.Models.Usuario();
+
+            MiUsuarioLocal.UsuarioNombre = TxtUsuarioNombre.Text.Trim();
+            MiUsuarioLocal.UsuarioCedula = TxtCedula.Text.Trim();   
+            MiUsuarioLocal.UsuarioTelefono = TxtTelefono.Text.Trim();   
+            MiUsuarioLocal.UsuarioCorreo = TxtUsuarioCorreo.Text.Trim();    
+            MiUsuarioLocal.UsuarioContrasennia = TxtUsuarioContrasennia.Text.Trim();
+
+            MiUsuarioLocal.MiRolTipo.UsuarioRolID = Convert.ToInt32(CbRolesUsuario.SelectedValue);
+            MiUsuarioLocal.UsuarioDireccion = TxtUsuarioDireccion.Text.Trim();
+            //1.3 y 1.3.6
+            CedulaOk = MiUsuarioLocal.ConsultarPorCedula();
+
+          //  1.4 y 1.4.6
+
+            EmailOk = MiUsuarioLocal.ConsultarPorEmail();
+
+            //1.5
+
+            //see puede agregar el usuario ya que no existe 
+
+            if (CedulaOk == false && EmailOk == false)
+            {
+
+
+                string msg = string.Format("¿Esta seguro que desea agregar al usuario {0}?", MiUsuarioLocal.UsuarioNombre);
+
+                DialogResult respuesta = MessageBox.Show(msg, "???", MessageBoxButtons.YesNo);
+
+                if (respuesta == DialogResult.Yes)
+                {
+
+                    bool ok = MiUsuarioLocal.Agregar();
+
+                    if (ok)
+                    {
+                        MessageBox.Show("Usuario guardado correctamente!", ":)", MessageBoxButtons.OK);
+
+                        LimpiarFormularios();
+                        CargarListaPorUsuarios();
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("El Usuario no se pudo guardar  ", ":/", MessageBoxButtons.OK);
+
+                    }
+
+                }
+            
+            }
+            if (CedulaOk)
+            {
+                MessageBox.Show("Ya existe un usuario con la cedula digitada", "Error de Validacion", MessageBoxButtons.OK);
+                return;
+            }
+            if (EmailOk)
+            {
+                MessageBox.Show("Ya existe un usuario con el correo digitado ", "Error de Validacion", MessageBoxButtons.OK);
+                return;
+            }
+        
+        
+
+
+
+
+        }
+
+
+
+
+
+
+
     }
+    }
+
 }
