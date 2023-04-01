@@ -101,13 +101,41 @@ namespace Logica.Models
         {
 
             bool R = false;
+            Conexion MiCnn = new Conexion();
+            MiCnn.ListaDeParametros.Add(new SqlParameter("@ID", this.UsuarioID));
+
+            int respuesta = MiCnn.EjecutarInsertUpdateDelete("SPUsuarioDesactivar");
+
+            if(respuesta > 0)
+            {
+                R = true;
+            }
+
+
+
+
             return R;
         }
 
         public bool ConsultarPorID()
         {
-
             bool R = false;
+            Conexion MiCnn = new Conexion();
+
+            MiCnn.ListaDeParametros.Add(new SqlParameter("@ID", this.UsuarioID));
+
+            DataTable dt = new DataTable();
+
+            dt = MiCnn.EjecutarSELECT("SPUsuarioConsultarPorID");
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+              
+                R = true;
+            }
+
+
+            
             return R;
         }
 

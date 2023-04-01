@@ -187,7 +187,7 @@ namespace P52023_WirvingJ.Formularios
 
         }
 
-        private bool ValidarDatosDigitados()
+        private bool ValidarDatosDigitados(bool OmitirPassword = false)
         {
             bool  R = false;
 
@@ -195,10 +195,45 @@ namespace P52023_WirvingJ.Formularios
                  !string.IsNullOrEmpty(TxtCedula.Text.Trim()) &&
                  !string.IsNullOrEmpty(TxtTelefono.Text.Trim()) &&
                  !string.IsNullOrEmpty(TxtUsuarioCorreo.Text.Trim()) &&
-                 !string.IsNullOrEmpty(TxtUsuarioContrasennia.Text.Trim()) &&
-                 CbRolesUsuario.SelectedIndex > -1
-                 )
+              
+                 CbRolesUsuario.SelectedIndex > -1)
             {
+                if(OmitirPassword)
+                    {
+
+                    R = true;
+
+                }
+                else
+                {
+
+
+
+                }
+                if(!string.IsNullOrEmpty(TxtUsuarioContrasennia.Text.Trim()))
+                    {
+                    R = true;
+
+
+                }
+                else
+                {
+                    MessageBox.Show("Debe digitar una contraseña para el ususario", "✘", MessageBoxButtons.OK);
+                    TxtUsuarioContrasennia.Focus();
+                    return false;
+
+
+
+                }
+
+
+
+
+
+
+
+
+
                 R = true;
             }
             else
@@ -233,12 +268,7 @@ namespace P52023_WirvingJ.Formularios
                     return false;
                 }
 
-                if (string.IsNullOrEmpty(TxtUsuarioContrasennia.Text.Trim()))
-                {
-                    MessageBox.Show("Debe digitar una contraseña para el ususario", "✘", MessageBoxButtons.OK);
-                    TxtUsuarioContrasennia.Focus();
-                    return false;
-                }
+               
 
                 if (CbRolesUsuario.SelectedIndex == -1)
                 {
@@ -346,6 +376,94 @@ namespace P52023_WirvingJ.Formularios
 
 
     }
+
+        private void BtnModificar_Click(object sender, EventArgs e)
+        {
+            if(ValidarDatosDigitados(true))
+            {
+
+
+                MiUsuarioLocal.UsuarioNombre = TxtUsuarioNombre.Text.Trim();
+                MiUsuarioLocal.UsuarioCedula = TxtCedula.Text.Trim();
+                MiUsuarioLocal.UsuarioNombre = TxtTelefono.Text.Trim();
+                MiUsuarioLocal.UsuarioCorreo = TxtUsuarioCorreo.Text.Trim();
+
+                MiUsuarioLocal.UsuarioContrasennia = TxtUsuarioContrasennia.Text.Trim();
+
+                MiUsuarioLocal.MiRolTipo.UsuarioRolID = Convert.ToInt32(CbRolesUsuario.SelectedValue);
+
+
+                MiUsuarioLocal.UsuarioDireccion = TxtUsuarioDireccion.Text.Trim();
+
+                if(MiUsuarioLocal.ConsultarPorID())
+                {
+                    DialogResult respuesta = MessageBox.Show("Esta seguro de modificar el usuario ", "???",
+                                                              MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
+
+                    if(respuesta == DialogResult.Yes)
+                    {
+                        if(MiUsuarioLocal.Editar())
+
+                        {
+                            MessageBox.Show("El Usuario ha sido modoficado corretamente", ":)", MessageBoxButtons.OK);
+
+                            LimpiarFormularios();
+                            CargarListaPorUsuarios();
+
+                        }
+
+                    }
+
+
+                }
+
+
+
+            }
+
+        }
+
+        private void BtnEliminar_Click(object sender, EventArgs e)
+        {
+
+            if(MiUsuarioLocal.UsuarioID > 0 && MiUsuarioLocal.ConsultarPorID())
+            {
+
+
+                if(CboxVerActivos.Checked)
+                {
+                    //sdesactivae usuario
+                    DialogResult r = MessageBox.Show("Esta seguro de Eliminar al Usuario?", "???", MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
+
+                    if(r == DialogResult.Yes)
+                    {
+
+                        if (MiUsuarioLocal.Eliminar())
+
+                            MessageBox.Show("El usuario ha sido eliminado correctamente.", "!!!", MessageBoxButtons.OK);
+                        LimpiarFormularios();
+                        CargarListaPorUsuarios();
+
+                    }
+
+
+                }  
+                else
+                {
+                    //activar usuario
+
+                }
+
+
+
+            }    
+
+
+
+
+
+        }
     }
 
 }
