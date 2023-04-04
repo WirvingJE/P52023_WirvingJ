@@ -20,14 +20,14 @@ namespace P52023_WirvingJ.Formularios
 
         private Logica.Models.Usuario MiUsuarioLocal { get; set; }
 
-        private DataTable ListaUsuario { get; set; }    
+        private DataTable ListaUsuario { get; set; }
 
 
         public FrmUsuariosGestion()
         {
             InitializeComponent();
             MiUsuarioLocal = new Logica.Models.Usuario();
-            ListaUsuario= new DataTable();
+            ListaUsuario = new DataTable();
 
         }
 
@@ -38,33 +38,43 @@ namespace P52023_WirvingJ.Formularios
             MdiParent = Globales.MiFormPrincipal;
 
             CargarListaRoles();
-            
+
             CargarListaPorUsuarios();
 
 
         }
 
-        private void CargarListaPorUsuarios() 
-        
-        { 
-         ListaUsuario= new DataTable();
+        private void CargarListaPorUsuarios()
+
+        {
+            ListaUsuario = new DataTable();
+            string FiltroBusqueda = "";
+            if(!string.IsNullOrEmpty(TxtBuscar.Text.Trim()) && TxtBuscar.Text.Count() >=3 )
+            {
+                FiltroBusqueda = TxtBuscar.Text.Trim();
+            }
+
 
             if (CboxVerActivos.Checked)
             {
-                ListaUsuario = MiUsuarioLocal.ListarActivos();
+                ListaUsuario = MiUsuarioLocal.ListarActivos(FiltroBusqueda);
+
+
+
+
             }
             else
             {
-                ListaUsuario = MiUsuarioLocal.ListarInactivos();
+                ListaUsuario = MiUsuarioLocal.ListarInactivos(FiltroBusqueda);
             }
 
-            DgLista.DataSource= ListaUsuario;
+            DgLista.DataSource = ListaUsuario;
 
-     
-        
-        
-        
-        
+
+
+
+
+
         }
 
 
@@ -72,19 +82,19 @@ namespace P52023_WirvingJ.Formularios
         private void CargarListaRoles()
         {
 
-            Logica.Models.Usuario_Rol Mirol  = new Logica.Models.Usuario_Rol();
+            Logica.Models.Usuario_Rol Mirol = new Logica.Models.Usuario_Rol();
 
             DataTable dt = new DataTable();
             dt = Mirol.Listar();
 
             {
-            if (dt != null && dt.Rows.Count > 0)
+                if (dt != null && dt.Rows.Count > 0)
                 {
 
                     CbRolesUsuario.ValueMember = "ID";
-                    CbRolesUsuario.DisplayMember= "Descrip";
+                    CbRolesUsuario.DisplayMember = "Descrip";
                     CbRolesUsuario.DataSource = dt;
-                    CbRolesUsuario.SelectedIndex= -1;
+                    CbRolesUsuario.SelectedIndex = -1;
 
 
 
@@ -107,7 +117,7 @@ namespace P52023_WirvingJ.Formularios
 
         private void DgLista_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            DgLista.ClearSelection();   
+            DgLista.ClearSelection();
         }
 
         private void DgLista_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -116,7 +126,7 @@ namespace P52023_WirvingJ.Formularios
             //en el ususario y leufo esta info en kloscontrploes
 
             if (DgLista.SelectedRows.Count == 1)
-                {
+            {
 
                 DataGridViewRow Mifila = DgLista.SelectedRows[0];
 
@@ -135,7 +145,7 @@ namespace P52023_WirvingJ.Formularios
 
                 MiUsuarioLocal = MiUsuarioLocal.ConsultarPorIDRetornaUsuario();
 
-                if (MiUsuarioLocal != null && MiUsuarioLocal.UsuarioID > 0 )
+                if (MiUsuarioLocal != null && MiUsuarioLocal.UsuarioID > 0)
                 {
                     TxtUsuarioID.Text = Convert.ToString(MiUsuarioLocal.UsuarioID);
 
@@ -175,12 +185,12 @@ namespace P52023_WirvingJ.Formularios
         {
             TxtUsuarioID.Clear();
             TxtUsuarioNombre.Clear();
-            TxtCedula.Clear();  
-            TxtTelefono.Clear();    
+            TxtCedula.Clear();
+            TxtTelefono.Clear();
             TxtUsuarioCorreo.Clear();
             TxtUsuarioContrasennia.Clear();
 
-            CbRolesUsuario .SelectedIndex = -1;
+            CbRolesUsuario.SelectedIndex = -1;
 
             TxtUsuarioDireccion.Clear();
 
@@ -189,17 +199,17 @@ namespace P52023_WirvingJ.Formularios
 
         private bool ValidarDatosDigitados(bool OmitirPassword = false)
         {
-            bool  R = false;
+            bool R = false;
 
             if (!string.IsNullOrEmpty(TxtUsuarioNombre.Text.Trim()) &&
                  !string.IsNullOrEmpty(TxtCedula.Text.Trim()) &&
                  !string.IsNullOrEmpty(TxtTelefono.Text.Trim()) &&
                  !string.IsNullOrEmpty(TxtUsuarioCorreo.Text.Trim()) &&
-              
+
                  CbRolesUsuario.SelectedIndex > -1)
             {
-                if(OmitirPassword)
-                    {
+                if (OmitirPassword)
+                {
 
                     R = true;
 
@@ -210,8 +220,8 @@ namespace P52023_WirvingJ.Formularios
 
 
                 }
-                if(!string.IsNullOrEmpty(TxtUsuarioContrasennia.Text.Trim()))
-                    {
+                if (!string.IsNullOrEmpty(TxtUsuarioContrasennia.Text.Trim()))
+                {
                     R = true;
 
 
@@ -268,7 +278,7 @@ namespace P52023_WirvingJ.Formularios
                     return false;
                 }
 
-               
+
 
                 if (CbRolesUsuario.SelectedIndex == -1)
                 {
@@ -278,10 +288,10 @@ namespace P52023_WirvingJ.Formularios
                 }
 
 
-            
 
 
-        }
+
+            }
 
 
 
@@ -292,94 +302,94 @@ namespace P52023_WirvingJ.Formularios
 
         private void BtnAgregar_Click(object sender, EventArgs e)
         {
-            if(ValidarDatosDigitados())
-            {
-
-            
-
-            bool CedulaOk;
-            bool EmailOk;
-
-            MiUsuarioLocal = new Logica.Models.Usuario();
-
-            MiUsuarioLocal.UsuarioNombre = TxtUsuarioNombre.Text.Trim();
-            MiUsuarioLocal.UsuarioCedula = TxtCedula.Text.Trim();   
-            MiUsuarioLocal.UsuarioTelefono = TxtTelefono.Text.Trim();   
-            MiUsuarioLocal.UsuarioCorreo = TxtUsuarioCorreo.Text.Trim();    
-            MiUsuarioLocal.UsuarioContrasennia = TxtUsuarioContrasennia.Text.Trim();
-
-            MiUsuarioLocal.MiRolTipo.UsuarioRolID = Convert.ToInt32(CbRolesUsuario.SelectedValue);
-            MiUsuarioLocal.UsuarioDireccion = TxtUsuarioDireccion.Text.Trim();
-            //1.3 y 1.3.6
-            CedulaOk = MiUsuarioLocal.ConsultarPorCedula();
-
-          //  1.4 y 1.4.6
-
-            EmailOk = MiUsuarioLocal.ConsultarPorEmail();
-
-            //1.5
-
-            //see puede agregar el usuario ya que no existe 
-
-            if (CedulaOk == false && EmailOk == false)
+            if (ValidarDatosDigitados())
             {
 
 
-                string msg = string.Format("¿Esta seguro que desea agregar al usuario {0}?", MiUsuarioLocal.UsuarioNombre);
 
-                DialogResult respuesta = MessageBox.Show(msg, "???", MessageBoxButtons.YesNo);
+                bool CedulaOk;
+                bool EmailOk;
 
-                if (respuesta == DialogResult.Yes)
+                MiUsuarioLocal = new Logica.Models.Usuario();
+
+                MiUsuarioLocal.UsuarioNombre = TxtUsuarioNombre.Text.Trim();
+                MiUsuarioLocal.UsuarioCedula = TxtCedula.Text.Trim();
+                MiUsuarioLocal.UsuarioTelefono = TxtTelefono.Text.Trim();
+                MiUsuarioLocal.UsuarioCorreo = TxtUsuarioCorreo.Text.Trim();
+                MiUsuarioLocal.UsuarioContrasennia = TxtUsuarioContrasennia.Text.Trim();
+
+                MiUsuarioLocal.MiRolTipo.UsuarioRolID = Convert.ToInt32(CbRolesUsuario.SelectedValue);
+                MiUsuarioLocal.UsuarioDireccion = TxtUsuarioDireccion.Text.Trim();
+                //1.3 y 1.3.6
+                CedulaOk = MiUsuarioLocal.ConsultarPorCedula();
+
+                //  1.4 y 1.4.6
+
+                EmailOk = MiUsuarioLocal.ConsultarPorEmail();
+
+                //1.5
+
+                //see puede agregar el usuario ya que no existe 
+
+                if (CedulaOk == false && EmailOk == false)
                 {
 
-                    bool ok = MiUsuarioLocal.Agregar();
 
-                    if (ok)
+                    string msg = string.Format("¿Esta seguro que desea agregar al usuario {0}?", MiUsuarioLocal.UsuarioNombre);
+
+                    DialogResult respuesta = MessageBox.Show(msg, "???", MessageBoxButtons.YesNo);
+
+                    if (respuesta == DialogResult.Yes)
                     {
-                        MessageBox.Show("Usuario guardado correctamente!", ":)", MessageBoxButtons.OK);
 
-                        LimpiarFormularios();
-                        CargarListaPorUsuarios();
+                        bool ok = MiUsuarioLocal.Agregar();
 
-                    }
-                    else
-                    {
-                        MessageBox.Show("El Usuario no se pudo guardar  ", ":/", MessageBoxButtons.OK);
+                        if (ok)
+                        {
+                            MessageBox.Show("Usuario guardado correctamente!", ":)", MessageBoxButtons.OK);
+
+                            LimpiarFormularios();
+                            CargarListaPorUsuarios();
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("El Usuario no se pudo guardar  ", ":/", MessageBoxButtons.OK);
+
+                        }
 
                     }
 
                 }
-            
+                if (CedulaOk)
+                {
+                    MessageBox.Show("Ya existe un usuario con la cedula digitada", "Error de Validacion", MessageBoxButtons.OK);
+                    return;
+                }
+                if (EmailOk)
+                {
+                    MessageBox.Show("Ya existe un usuario con el correo digitado ", "Error de Validacion", MessageBoxButtons.OK);
+                    return;
+                }
+
+
+
+
+
+
             }
-            if (CedulaOk)
-            {
-                MessageBox.Show("Ya existe un usuario con la cedula digitada", "Error de Validacion", MessageBoxButtons.OK);
-                return;
-            }
-            if (EmailOk)
-            {
-                MessageBox.Show("Ya existe un usuario con el correo digitado ", "Error de Validacion", MessageBoxButtons.OK);
-                return;
-            }
-        
-        
+
+
+
 
 
 
 
         }
 
-
-
-
-
-
-
-    }
-
         private void BtnModificar_Click(object sender, EventArgs e)
         {
-            if(ValidarDatosDigitados(true))
+            if (ValidarDatosDigitados(true))
             {
 
 
@@ -395,14 +405,14 @@ namespace P52023_WirvingJ.Formularios
 
                 MiUsuarioLocal.UsuarioDireccion = TxtUsuarioDireccion.Text.Trim();
 
-                if(MiUsuarioLocal.ConsultarPorID())
+                if (MiUsuarioLocal.ConsultarPorID())
                 {
                     DialogResult respuesta = MessageBox.Show("Esta seguro de modificar el usuario ", "???",
-                                                              MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
+                                                              MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                    if(respuesta == DialogResult.Yes)
+                    if (respuesta == DialogResult.Yes)
                     {
-                        if(MiUsuarioLocal.Editar())
+                        if (MiUsuarioLocal.Editar())
 
                         {
                             MessageBox.Show("El Usuario ha sido modoficado corretamente", ":)", MessageBoxButtons.OK);
@@ -426,17 +436,17 @@ namespace P52023_WirvingJ.Formularios
         private void BtnEliminar_Click(object sender, EventArgs e)
         {
 
-            if(MiUsuarioLocal.UsuarioID > 0 && MiUsuarioLocal.ConsultarPorID())
+            if (MiUsuarioLocal.UsuarioID > 0 && MiUsuarioLocal.ConsultarPorID())
             {
 
 
-                if(CboxVerActivos.Checked)
+                if (CboxVerActivos.Checked)
                 {
                     //sdesactivae usuario
                     DialogResult r = MessageBox.Show("Esta seguro de Eliminar al Usuario?", "???", MessageBoxButtons.YesNo,
                         MessageBoxIcon.Question);
 
-                    if(r == DialogResult.Yes)
+                    if (r == DialogResult.Yes)
                     {
 
                         if (MiUsuarioLocal.Eliminar())
@@ -448,7 +458,7 @@ namespace P52023_WirvingJ.Formularios
                     }
 
 
-                }  
+                }
                 else
                 {
                     //activar usuario
@@ -457,13 +467,101 @@ namespace P52023_WirvingJ.Formularios
 
 
 
-            }    
+            }
 
 
 
 
 
         }
+
+        private void TxtUsuarioNombre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.CaracteresTexto(e, true);
+
+
+        }
+
+        private void TxtCedula_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.CaracteresNumeros(e, true);
+
+        }
+
+        private void TxtTelefono_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TxtTelefono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.CaracteresTexto(e);
+        }
+
+        private void TxtUsuarioCorreo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.CaracteresTexto(e,false, true);
+
+        }
+
+        private void TxtUsuarioDireccion_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.CaracteresTexto(e, true);
+
+        }
+
+        private void CbRolesUsuario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+          
+
+        }
+
+        private void TxtUsuarioContrasennia_TextChanged(object sender, EventArgs e)
+        {
+            
+
+        }
+
+        private void TxtUsuarioContrasennia_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.CaracteresTexto(e, true);
+
+        }
+
+        private void TxtUsuarioCorreo_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(TxtUsuarioCorreo.Text.Trim()))
+            {
+                MessageBox.Show("el formato del correo electronico es incorecto", "Erroe de validacion", MessageBoxButtons.OK);
+                    TxtUsuarioCorreo.Focus();
+
+            }
+
+        }
+
+        private void CboxVerActivos_CheckedChanged(object sender, EventArgs e)
+        {
+
+            CargarListaPorUsuarios();
+
+            if(CboxVerActivos.Checked)
+            {
+                BtnEliminar.Text = "ELIMINAR";
+            }
+            else
+            {
+                BtnEliminar.Text = "ACTIVAR";
+            }
+
+        }
+
+        private void TxtBuscar_TextChanged(object sender, EventArgs e)
+        {
+
+
+            CargarListaPorUsuarios();
+
+        }
     }
 
-}
+}   

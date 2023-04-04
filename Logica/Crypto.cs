@@ -5,9 +5,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace P52023_WirvingJ
+namespace Logica
 {
-    public class Crypto
+    internal class Crypto
     {
 
         //Esta clase contiene los métodos necesarios para encriptar
