@@ -487,7 +487,18 @@ namespace P52023_WirvingJ.Formularios
                 }
                 else
                 {
-                    //activar usuario
+                    DialogResult r = MessageBox.Show("¿Está seguro que desea activar el usuario?", "???", MessageBoxButtons.YesNo
+                     , MessageBoxIcon.Question);
+                    if (r == DialogResult.Yes)
+                    {
+                        if (MiUsuarioLocal.Activar())
+                        {
+                            MessageBox.Show("El usuario ha sido activado satisfactoriamente", ":D", MessageBoxButtons.OK);
+                            LimpiarFormularios();
+                            CargarListaPorUsuarios();
+                        }
+
+                    }
 
                 }
 
