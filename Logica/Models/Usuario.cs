@@ -148,6 +148,16 @@ namespace Logica.Models
         {
             bool R = false;
 
+            Conexion MiCnn = new Conexion();
+            MiCnn.ListaDeParametros.Add(new SqlParameter("@ID", this.UsuarioID));
+
+            int respuesta = MiCnn.EjecutarInsertUpdateDelete("SPUsuarioActivar");
+
+            if (respuesta > 0)
+            {
+                R = true;
+            }
+
             //Tarea
 
             return R;

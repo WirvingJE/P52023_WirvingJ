@@ -39,7 +39,11 @@ namespace P52023_WirvingJ.Formularios
 
             CargarListaRoles();
 
+
+
             CargarListaPorUsuarios();
+
+            ActivarAgregar();
 
 
         }
@@ -76,6 +80,21 @@ namespace P52023_WirvingJ.Formularios
 
 
         }
+
+        private void ActivarAgregar()
+        {
+            BtnAgregar.Enabled = true;
+            BtnModificar.Enabled = false;
+            BtnEliminar.Enabled = false;
+        }
+
+        private void ActivarEditarEliminar()
+        {
+            BtnAgregar.Enabled = false;
+            BtnModificar.Enabled = true;
+            BtnEliminar.Enabled = true;
+        }
+
 
 
 
@@ -128,6 +147,8 @@ namespace P52023_WirvingJ.Formularios
             if (DgLista.SelectedRows.Count == 1)
             {
 
+                LimpiarFormularios();
+
                 DataGridViewRow Mifila = DgLista.SelectedRows[0];
 
                 //lo que se necisito es el valo rID del Ususario para realizae la cosuta
@@ -163,7 +184,8 @@ namespace P52023_WirvingJ.Formularios
                     //combobox
                     CbRolesUsuario.SelectedValue = MiUsuarioLocal.MiRolTipo.UsuarioRolID;
 
-                    //tod dessativar botones 
+                    ActivarEditarEliminar();
+
 
 
                 }
@@ -179,6 +201,10 @@ namespace P52023_WirvingJ.Formularios
         private void BtnLimpiar_Click(object sender, EventArgs e)
         {
             LimpiarFormularios();
+
+            DgLista.ClearSelection();
+
+            ActivarAgregar();
         }
 
         private void LimpiarFormularios()
