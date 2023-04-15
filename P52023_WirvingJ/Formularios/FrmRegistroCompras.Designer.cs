@@ -353,6 +353,7 @@
             this.Name = "FrmRegistroCompras";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Registro de Compra";
+            this.Load += new System.EventHandler(this.FrmRegistroCompras_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

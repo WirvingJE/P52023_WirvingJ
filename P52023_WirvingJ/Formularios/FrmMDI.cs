@@ -79,5 +79,18 @@ namespace P52023_WirvingJ.Formularios
 
 
         }
+
+        private void rEGISTRODECOMPRASToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!Globales.MiFormRegistroCompra.Visible)
+            {
+                Globales.MiFormRegistroCompra = new FrmRegistroCompras();
+
+                Globales.MiFormRegistroCompra.Show();
+
+            }
+
+
+        }
     }
 }

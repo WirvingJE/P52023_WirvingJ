@@ -19,6 +19,8 @@ namespace P52023_WirvingJ
 
         public static Logica.Models.Usuario MiUsuarioGlobal = new Logica.Models.Usuario();
 
+        public static Formularios.FrmRegistroCompras MiFormRegistroCompra = new Formularios.FrmRegistroCompras();
+
 
 
 

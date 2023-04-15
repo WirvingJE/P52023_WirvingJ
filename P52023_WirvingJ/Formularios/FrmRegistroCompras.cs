@@ -16,5 +16,15 @@ namespace P52023_WirvingJ.Formularios
         {
             InitializeComponent();
         }
+
+        private void FrmRegistroCompras_Load(object sender, EventArgs e)
+        {
+            MdiParent = Globales.MiFormPrincipal;
+
+
+
+
+
+        }
     }
 }
