@@ -47,5 +47,37 @@ namespace P52023_WirvingJ.Formularios
 
 
         }
+
+        private void FrmMDI_Load(object sender, EventArgs e)
+        {
+
+            //mostrar el usuario logeado
+            string InfoUsuario = string.Format("{0}-{1}({2})",
+                                                             Globales.MiUsuarioGlobal.UsuarioNombre,
+                                                             Globales.MiUsuarioGlobal.UsuarioCorreo,
+                                                             Globales.MiUsuarioGlobal.MiRolTipo.UsuarioRolDescripcion);
+
+
+            LblUsuario.Text = InfoUsuario;  
+
+            switch (Globales.MiUsuarioGlobal.MiRolTipo.UsuarioRolID)
+            {
+                case 1:
+                    
+                    break;  
+
+                    case 2:
+                    gestiónDeUsuariosToolStripMenuItem.Visible= false;
+                    rolesDeUsuarioToolStripMenuItem.Visible = false;
+                    tiposDeProveedorToolStripMenuItem.Visible = false;
+                    tiposDeProveedorToolStripMenuItem.Visible = false;
+                    break;
+
+                       
+            }
+
+
+
+        }
     }
 }

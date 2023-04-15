@@ -15,6 +15,14 @@ namespace P52023_WirvingJ
 
         public static Formularios.FrmUsuariosGestion MiFormGestionUsuarios = new Formularios.FrmUsuariosGestion();
 
+        //Debemos tener un objeto de tipo usuario que perita almacenar los datos del ususrio que se haya logiago crrectmente
+
+        public static Logica.Models.Usuario MiUsuarioGlobal = new Logica.Models.Usuario();
+
+
+
+
+
 
     }
 }

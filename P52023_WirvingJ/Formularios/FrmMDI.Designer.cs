@@ -49,7 +49,11 @@
             this.reipresiónDeCompraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MneSalir = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuSalir = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.LblUsuario = new System.Windows.Forms.ToolStripStatusLabel();
             this.MnuPrincipal.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // MnuPrincipal
@@ -215,11 +219,37 @@
             this.MnuSalir.Size = new System.Drawing.Size(111, 32);
             this.MnuSalir.Text = "Acerca de";
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.LblUsuario});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 424);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(800, 26);
+            this.statusStrip1.TabIndex = 3;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(59, 20);
+            this.toolStripStatusLabel1.Text = "Usuario";
+            // 
+            // LblUsuario
+            // 
+            this.LblUsuario.BackColor = System.Drawing.Color.Ivory;
+            this.LblUsuario.Name = "LblUsuario";
+            this.LblUsuario.Size = new System.Drawing.Size(57, 20);
+            this.LblUsuario.Text = "usuario";
+            // 
             // FrmMDI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.MnuPrincipal);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.MnuPrincipal;
@@ -227,8 +257,11 @@
             this.Text = "SISTEMA DE COMPRAS PROGRA 5 2023-1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmMDI_FormClosed);
+            this.Load += new System.EventHandler(this.FrmMDI_Load);
             this.MnuPrincipal.ResumeLayout(false);
             this.MnuPrincipal.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -257,5 +290,8 @@
         private System.Windows.Forms.ToolStripMenuItem listadoDeInventarioToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem reipresiónDeCompraToolStripMenuItem;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel LblUsuario;
     }
 }

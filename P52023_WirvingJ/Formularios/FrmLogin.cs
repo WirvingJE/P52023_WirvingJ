@@ -48,11 +48,75 @@ namespace P52023_WirvingJ.Formularios
 
         private void BtnIngresar_Click(object sender, EventArgs e)
         {
-            // todo: se debe validade el usuario 
+           
+            //validar que se haya digitado un usuario y contraseña
+
+            if (!string.IsNullOrEmpty(TxtEmail.Text.Trim()) &&
+                !string.IsNullOrEmpty(TxtContrasennia.Text.Trim()))
+            {
+                string usuario = TxtEmail.Text.Trim();
+                string contrasennia = TxtContrasennia.Text.Trim();
+
+                //tratar de validar que los datos digitados sean correctos
+
+                Globales.MiUsuarioGlobal  = Globales.MiUsuarioGlobal.ValidarUsuario(usuario, contrasennia);
+
+                if (Globales.MiUsuarioGlobal.UsuarioID > 0)
+                {
+                    Globales.MiFormPrincipal.Show();
+
+                    this.Hide();
+
+                }
+                else
+                {
+                    MessageBox.Show("Usuario o Contraseña Incorrectas...", "Eror de validacion", MessageBoxButtons.OK);
+
+                    TxtContrasennia.Focus();
+                    TxtContrasennia.SelectAll();
+                }
+
+
+
+
+            }
+            else
+            {
+                MessageBox.Show("Faltan datos requeridos", "Error de validacion", MessageBoxButtons.OK);
+            }
+
+
+
+          
+        }
+
+        private void FrmLogin_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            //al presionar cierta cominscion el btoen de ingredi directo aparece 
+            if (e.Shift & e.Alt & e.KeyCode == Keys.A)
+            { 
+
+                BtnIngresarDirecto.Visible = true;
+
+
+            }
+
+
+
+
+
+
+        }
+
+        private void BtnIngresarDirecto_Click(object sender, EventArgs e)
+        {
 
             Globales.MiFormPrincipal.Show();
+            this.Hide();    
 
-            this.Hide();
+
+
         }
     }
 }

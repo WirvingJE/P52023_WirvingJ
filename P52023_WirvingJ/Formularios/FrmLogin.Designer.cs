@@ -37,6 +37,7 @@
             this.LblRecuperarContrasennia = new System.Windows.Forms.LinkLabel();
             this.BtnVerContrasennia = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.BtnIngresarDirecto = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -141,12 +142,24 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
+            // BtnIngresarDirecto
+            // 
+            this.BtnIngresarDirecto.Location = new System.Drawing.Point(57, 415);
+            this.BtnIngresarDirecto.Name = "BtnIngresarDirecto";
+            this.BtnIngresarDirecto.Size = new System.Drawing.Size(159, 32);
+            this.BtnIngresarDirecto.TabIndex = 9;
+            this.BtnIngresarDirecto.Text = "Ingreso Directo";
+            this.BtnIngresarDirecto.UseVisualStyleBackColor = true;
+            this.BtnIngresarDirecto.Visible = false;
+            this.BtnIngresarDirecto.Click += new System.EventHandler(this.BtnIngresarDirecto_Click);
+            // 
             // FrmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(435, 524);
+            this.Controls.Add(this.BtnIngresarDirecto);
             this.Controls.Add(this.BtnVerContrasennia);
             this.Controls.Add(this.LblRecuperarContrasennia);
             this.Controls.Add(this.pictureBox1);
@@ -158,10 +171,12 @@
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.KeyPreview = true;
             this.Name = "FrmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmLogin";
             this.Load += new System.EventHandler(this.FrmLogin_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmLogin_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -179,5 +194,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.LinkLabel LblRecuperarContrasennia;
         private System.Windows.Forms.Button BtnVerContrasennia;
+        private System.Windows.Forms.Button BtnIngresarDirecto;
     }
 }
