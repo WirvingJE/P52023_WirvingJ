@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Logica.Services;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -89,32 +91,38 @@ namespace Logica.Models
 
 
 
-        public DataTable ListarActivos()
+        public DataTable Listar(bool verActivos = true,string FiltroBusqueda = "")
         {
 
             DataTable R = new DataTable();
 
+            Conexion MiCnn = new Conexion();
+
+            MiCnn.ListaDeParametros.Add(new SqlParameter("@VerActivos", verActivos));
+            MiCnn.ListaDeParametros.Add(new SqlParameter("@FiltroBusqueda", FiltroBusqueda));
+            R = MiCnn.EjecutarSELECT("SPProveedorListar");
+
+
+
             return R;
         }
 
-        public DataTable ListarInactivos()
-        {
-
-            DataTable R = new DataTable();
-
-            return R;
-        }
-
-      
-
-
-
-
-
+       
+            
     }
 
 
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
