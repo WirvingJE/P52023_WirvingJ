@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logica.Services;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -9,37 +10,36 @@ namespace Logica.Models
 {
     public class TipoCompra
     {
-
-
-        public int CompraTipoID { get; set; }   
-
-        public string CompraTipoDescripcion { get;set; }
+        public int CompraTipoID { get; set; }
+        public string CompraTipoDescripcion { get; set; }
 
         public DataTable Listar()
         {
-
-
             DataTable R = new DataTable();
 
-            //aca va el codigo funcional que carga la lista de categorias 
+            Conexion MiCnn = new Conexion();
+
+            R = MiCnn.EjecutarSELECT("SPTipoCompraListar");
 
             return R;
         }
-  
-    
+
     }
 
 
-
-
-
-
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

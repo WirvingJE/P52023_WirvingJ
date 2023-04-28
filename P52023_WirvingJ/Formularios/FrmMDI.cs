@@ -92,5 +92,19 @@ namespace P52023_WirvingJ.Formularios
 
 
         }
+
+        private void gestionDeProveedoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            if (!Globales.MiFormGestionProveedores.Visible)
+            {
+                Globales.MiFormGestionProveedores = new FrmProveedorGestion();
+
+                Globales.MiFormGestionProveedores.Show();
+            }
+
+            
+
+        }
     }
 }

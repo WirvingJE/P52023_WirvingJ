@@ -11,7 +11,7 @@ namespace Logica.Models
     {
         public int ProveedorTipo { get; set; }
         public string ProveedorTipoDescripcion { get; set; }
-
+         
         public DataTable Listar()
         {
 

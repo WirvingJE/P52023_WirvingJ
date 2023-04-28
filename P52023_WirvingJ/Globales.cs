@@ -21,7 +21,7 @@ namespace P52023_WirvingJ
 
         public static Formularios.FrmRegistroCompras MiFormRegistroCompra = new Formularios.FrmRegistroCompras();
 
-
+        public static Formularios.FrmProveedorGestion MiFormGestionProveedores = new Formularios.FrmProveedorGestion();
 
 
 

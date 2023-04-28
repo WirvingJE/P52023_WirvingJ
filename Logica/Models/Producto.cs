@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logica.Services;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -10,14 +11,12 @@ namespace Logica.Models
     public class Producto
     {
         public int ProductoID { get; set; }
-        public String ProductoNombre { get; set; }
-        public String ProductoCodigoBarras { get; set; }
+        public string ProductoNombre { get; set; }
+        public string ProductoCodigoBarras { get; set; }
         public decimal CantidadStock { get; set; }
         public decimal CostoUnitario { get; set; }
-        public  decimal PrecioVentaUnitario { get; set; }
+        public decimal PrecioVentaUnitario { get; set; }
         public bool Activo { get; set; }
-
-
 
         public bool Agregar()
         {
@@ -44,9 +43,18 @@ namespace Logica.Models
             throw new System.Exception("Not implemented");
         }
 
+        //nueva función para mostrar la lista de items en la 
+        //ventana de búsqueda de productos 
+        public DataTable ListarEnBusqueda()
+        {
+            DataTable R = new DataTable();
 
+            Conexion MiCnn = new Conexion();
 
+            R = MiCnn.EjecutarSELECT("SPProductoBusquedaListar"); 
 
+            return R;
+        }
 
 
         public CategoriaProducto MiCategoria { get; set; }
@@ -55,6 +63,7 @@ namespace Logica.Models
         {
             MiCategoria = new CategoriaProducto();
         }
+
 
 
     }
